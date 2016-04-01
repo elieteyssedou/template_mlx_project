@@ -6,7 +6,7 @@
 /*   By: Elie <Elie@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/08 14:06:22 by eteyssed          #+#    #+#             */
-/*   Updated: 2016/04/01 18:58:41 by Elie             ###   ########.fr       */
+/*   Updated: 2016/04/01 21:30:00 by Elie             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ int		ft_color_to_int(t_color color)
 	return (c);
 }
 
-void	ft_put_pixel(t_env env, t_coor point, t_color color)
+void	ft_put_pixel(t_env env, t_coor pix, t_color color)
 {
-	mlx_pixel_put(env.mlx, env.win, point.x, point.y, ft_color_to_int(color));
+	mlx_pixel_put(env.mlx, env.win, pix.x, pix.y, ft_color_to_int(color));
 }
 
-void	ft_put_pixel_img(t_coor point, t_img img)
+void	ft_put_pixel_img(t_coor pix, t_img* img)
 {
-	if ((point.x >= 0 && point.x <= SIZE_X)
-		&& (point.y >= 0 && point.y <= SIZE_Y))
-		ft_memcpy(&img.data[(point.y * img.sizeline) + (point.x * 4)],\
-			&img.color, (size_t)(sizeof(int)));
+	if ((pix.x >= 0 && pix.x <= SIZE_X) && (pix.y >= 0 && pix.y <= SIZE_Y))
+		{
+			ft_memcpy(&img->data[(pix.y * img->sizeline) + (pix.x * 4)],\
+			&img->color, (size_t)(sizeof(int)));
+		}
 }
