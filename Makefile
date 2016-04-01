@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eteyssed <eteyssed@student.42.fr>          +#+  +:+       +#+         #
+#    By: Elie <Elie@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/13 20:11:17 by eteyssed          #+#    #+#              #
-#    Updated: 2014/11/13 20:11:25 by eteyssed         ###   ########.fr        #
+#    Updated: 2016/04/01 18:47:08 by Elie             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	rtv1
-SRC		=	
+SRC		=	lib/main.c lib/libmlx.c
 OBJ =		$(SRC:.c=.o)
 FLAGS =		-Wall -Wextra -Werror
-INCLUDES =	-I . -I includes
+INCLUDES =	-I . -I includes/ -I libft/
 LIBFT =		libft/libft.a
-MLX =		mlx/libmlx.a
+MLX =		-Lmlx/ -lmlx -framework OPENGL -framework Appkit
 CC =		gcc
 
 all: $(NAME)
@@ -24,11 +24,11 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C libft/ fclean
 	@make -C libft/
-	@$(CC) -O3 $(FLAGS) -o $(NAME) $(INCLUDES) $(OBJ) $(LIBFT) $(MLX)
+	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(MLX)
 	@echo "Sucess: Program compiled."
 
 %.o: %.c
-	@$(CC) $(FLAGS) -I. -o $@ -c $? 
+	@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $?
 
 clean:
 	@rm -f $(OBJ)
